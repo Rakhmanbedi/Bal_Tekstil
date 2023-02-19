@@ -1,5 +1,15 @@
 {% extends  'men/base.html'%}
-{%block content%}
-<h1>{{title}}</h1>
-<p>About us </p>
-{%endblock%}
+{% block index %}
+<ul class="list-articles">
+	{% for p in posts %}
+    <li>{{p.size}}</li>
+			<li><h2>{{p.price}}</h2>
+	{% autoescape on %}
+	{{p.discription}}
+	{% endautoescape %}
+			<div class="clear"></div>
+			<p class="link-read-post"><a href="{{ p.get_absolute_url }}">Читать пост</a></p>
+			</li>
+	{% endfor %}
+</ul>
+{% endblock %}

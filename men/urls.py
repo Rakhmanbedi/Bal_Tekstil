@@ -7,4 +7,8 @@ urlpatterns = [
     path('400/', error400, name='about400'),
     path('403/', error403, name='error403'),
     path('500/', error500, name='error500'),
+    path('product/', product, name='product'),
+    path('post/<int:post_id>/', show_post, name='post'),
+    path('category/<int:cat_id>/', show_category, name='category'),
+
 ]
