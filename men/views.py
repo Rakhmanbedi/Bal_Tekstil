@@ -1,29 +1,20 @@
 from django.http import HttpResponse
 from django.shortcuts import render
 
-from men.models import Men, Category, Post
+from men.models import Men
 
-menu = [{'title': "О сайте",'url_name': 'about'},
-        {'title':"Добавиь статью", 'url_name': 'add_page'},
-        {'title':"Обратная связь", 'url_name':'contact'},
-        {'title' :"Войти", 'url_name': 'login'}]
+menu = ["О сайте", "Добавить статью", "Обратная связь", "Войти"]
 def index(request):
-    posts = Post.objects.all()
-    cats = Category.objects.all
-    context = {
-        'posts': posts,
-        'cats':cats,
-        'menu':menu,
-        'title':'Home',
-        'cat_selected': 0,
-    }
-    return render(request, 'men/index.html',context=context)
+    posts = Men.objects.all()
+    return render(request, 'men/index.html', {'posts':posts, 'menu': menu, 'title': 'Home' })
 
+def categories(request, categoryid):
+    return HttpResponse(f"<h1>ksdjfjnhsdj</h1><p>{categoryid}</p>")
 
 def about(request):
     return render(request, 'men/about.html', {'menu':menu, 'title': 'about'})
 
-def error404(request,exception):
+def error404(request):
     return render(request, 'men/404.html')
 
 def error403(request):
@@ -34,32 +25,3 @@ def error500(request):
 
 def error400(request):
     return render(request, 'men/400.html')
-
-def product(request):
-    posts = Post.objects.all()
-    cats = Category.objects.all()
-    context = {
-        'posts': posts,
-        'cats' : cats,
-        'menu': menu,
-        'title': 'Home',
-        'cat_selected': 0,
-    }
-    return render(request, 'men/product.html',context=context)
-
-
-def show_post(request, post_id):
-    return HttpResponse(f"id = {post_id}")
-
-def show_category(request, cat_id):
-   posts = Post.objects.filter(cat_id=cat_id)
-   cats = Category.objects.all()
-
-   context = {
-       'posts' : posts,
-        'cats': cats,
-       'menu': menu,
-       'title': 'Home',
-       'cat_selected': cat_id,
-   }
-   return render(request, 'men/product.html', context=context)
